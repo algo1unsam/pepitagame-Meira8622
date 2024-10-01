@@ -38,7 +38,7 @@ object tutorial3 {
 		game.addVisual(pepita)
 		config.configurarTeclas()
 		config.configurarColisiones()
-	//	config.configurarGravedad()
+		config.configurarGravedad()
 	}
 
 }
@@ -61,6 +61,6 @@ object config {
 	}
 	
 	method configurarColisiones() {
-		game.onCollideDo(pepita, { algo => algo.teEncontro(pepita) })
+		game.onCollideDo(pepita, { algo => if(!comidas.listaComidas().contains(algo)) { algo.teEncontro(pepita) } })
 	}
 }

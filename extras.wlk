@@ -20,4 +20,8 @@ object silvestre {
 
 	method position() = game.at(pepita.position().x().max(3), 0)
 	
+	method teEncontro(ave) {
+		game.say(ave, "PERDI!")
+		game.schedule(2000, { game.stop() })
+	}
 }
