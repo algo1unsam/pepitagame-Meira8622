@@ -23,7 +23,7 @@ object tutorial2 {
 		game.addVisual(pepita)
 		config.configurarTeclas()
 
-		//config.configurarGravedad()  
+		config.configurarGravedad()  
 	}
 
 }
@@ -46,10 +46,18 @@ object tutorial3 {
 object config {
 
 	method configurarTeclas() {
-		keyboard.left().onPressDo({ pepita.irA(pepita.position().left(1)) })
-		keyboard.right().onPressDo({ pepita.irA(pepita.position().right(1)) })
-		keyboard.up().onPressDo({ pepita.irA(pepita.position().up(1))})
-		keyboard.down().onPressDo({ pepita.irA(pepita.position().down(1)) })
+		keyboard.left().onPressDo({ if(pepita.position().x() > 0) { pepita.irA(pepita.position().left(1)) } })
+		keyboard.right().onPressDo({ if(pepita.position().x() < 10) { pepita.irA(pepita.position().right(1)) } })
+		keyboard.up().onPressDo({ if(pepita.position().y() < 10) { pepita.irA(pepita.position().up(1)) }})
+		keyboard.down().onPressDo({ if(pepita.position().y() > 0) { pepita.irA(pepita.position().down(1)) } })
+		keyboard.c().onPressDo({ comidas.listaComidas().forEach({ comida => if(comida.position() == pepita.position()) {
+			pepita.come(comida)
+			game.removeVisual(comida)
+		} }) })
+	}
+	
+	method configurarGravedad() {
+		game.onTick(800, "gravedad", { if(pepita.estaCansada() && pepita.position().y() > 0) { pepita.position(pepita.position().down(1)) }})
 	}
 	
 	method configurarColisiones() {

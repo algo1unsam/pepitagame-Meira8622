@@ -17,6 +17,13 @@ object alpiste {
 	method position() = game.at(2, 2)
 
 	method energiaQueOtorga() = 70
+}
 
+object comidas {
+	const property listaComidas = [manzana, alpiste]
+
+	method agregarComida(comida) {
+		comida.add(comida)
+	}
 }
 
